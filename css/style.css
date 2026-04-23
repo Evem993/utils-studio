@@ -1,0 +1,66 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    text-align: center;
+}
+
+#utils-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+select, input, button {
+    margin: 10px;
+    padding: 8px;
+    font-size: 16px;
+}
+
+#output {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #eee;
+    border-radius: 4px;
+    min-height: 50px;
+}
+
+#json-to-csv-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+#json-to-csv-container h2 {
+    margin-top: 0;
+}
+
+#checkboxes {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+#checkboxes label {
+    display: flex;
+    align-items: center;
+    margin: 5px 0;
+}
+
+#json-output {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #eee;
+    border-radius: 4px;
+    min-height: 50px;
+}
