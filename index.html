@@ -3,22 +3,55 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Utils Studio</title>
+    <meta name="description" content="Convert JSON files to CSV format with column selection">
+    <title>Utils Studio - JSON to CSV Converter</title>
     <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <h1>Utils Studio</h1>
-    <div id="utils-container">
-        <select id="function-select">
-            <option value="">Select a function</option>
-            <!-- Options will be populated by JS -->
-        </select>
-        <div id="input-section">
-            <input type="text" id="input-value" placeholder="Enter input value">
+    <header class="header">
+        <div class="container">
+            <h1 class="title">Utils Studio</h1>
+            <p class="subtitle">JSON to CSV Converter</p>
         </div>
-        <button id="execute-btn">Execute</button>
-        <div id="output"></div>
-    </div>
+    </header>
+
+    <main class="main">
+        <div class="container">
+            <section class="converter-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Upload JSON File</h2>
+                        <p>Select a JSON file to convert to CSV format</p>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="upload-area">
+                            <input type="file" id="json-file-input" accept=".json" class="file-input">
+                            <label for="json-file-input" class="file-label">
+                                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14,2 14,8 20,8"></polyline>
+                                </svg>
+                                <span class="file-text">Choose JSON file</span>
+                            </label>
+                            <button id="load-json-btn" class="btn btn-primary">Load JSON</button>
+                        </div>
+
+                        <div id="column-selection" class="column-selection" style="display: none;">
+                            <h3 class="section-title">Select Columns</h3>
+                            <p class="section-description">Choose which columns to include in your CSV file</p>
+                            <div id="checkboxes" class="checkboxes-grid"></div>
+                            <button id="generate-csv-btn" class="btn btn-success">Generate CSV</button>
+                        </div>
+
+                        <div id="json-output" class="output-area"></div>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
     <script src="js/script.js"></script>
 </body>
 </html>
