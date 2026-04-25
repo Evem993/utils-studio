@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Convert JSON files to CSV format with column selection">
-    <title>Utils Studio - JSON to CSV Converter</title>
+    <meta name="description" content="JSON utilities: Convert to CSV or Edit JSON data">
+    <title>Utils Studio - JSON Tools</title>
     <link rel="stylesheet" href="css/style.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -12,17 +12,47 @@
     <header class="header">
         <div class="container">
             <h1 class="title">Utils Studio</h1>
-            <p class="subtitle">JSON to CSV Converter</p>
+            <p class="subtitle">JSON Data Tools</p>
         </div>
     </header>
 
     <main class="main">
         <div class="container">
-            <section class="converter-section">
+            <!-- Function Selector -->
+            <section class="function-selector">
+                <div class="function-buttons">
+                    <button id="csv-converter-btn" class="function-btn active">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                            <polyline points="14,2 14,8 20,8"></polyline>
+                        </svg>
+                        JSON to CSV
+                    </button>
+                    <button id="json-editor-btn" class="function-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                            <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                        </svg>
+                        JSON Editor
+                    </button>
+                    <button id="json-merger-btn" class="function-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                            <circle cx="9" cy="7" r="4"></circle>
+                            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                        </svg>
+                        JSON Merger
+                    </button>
+                </div>
+            </section>
+
+            <!-- JSON to CSV Converter -->
+            <section id="csv-converter-section" class="tool-section">
                 <div class="card">
                     <div class="card-header">
-                        <h2>Upload JSON File</h2>
-                        <p>Select a JSON file to convert to CSV format</p>
+                        <h2>JSON to CSV Converter</h2>
+                        <p>Convert JSON files to CSV format with column selection</p>
                     </div>
 
                     <div class="card-body">
@@ -46,6 +76,119 @@
                         </div>
 
                         <div id="json-output" class="output-area"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- JSON Editor -->
+            <section id="json-editor-section" class="tool-section" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>JSON Table Editor</h2>
+                        <p>Edit JSON data as a table with advanced column operations</p>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="upload-area">
+                            <input type="file" id="json-editor-file-input" accept=".json" class="file-input">
+                            <label for="json-editor-file-input" class="file-label">
+                                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+                                    <polyline points="14,2 14,8 20,8"></polyline>
+                                </svg>
+                                <span class="file-text">Choose JSON file</span>
+                            </label>
+                            <button id="load-json-editor-btn" class="btn btn-primary">Load JSON</button>
+                        </div>
+
+                        <div id="table-editor" class="table-editor" style="display: none;">
+                            <div class="table-controls">
+                                <div class="control-group">
+                                    <label for="row-display-select" style="font-weight: 500; color: var(--text-primary);">Display rows:</label>
+                                    <select id="row-display-select" class="btn btn-secondary" style="padding: 4px 8px; min-height: auto;">
+                                        <option value="5">First 5 rows</option>
+                                        <option value="10">First 10 rows</option>
+                                        <option value="25">First 25 rows</option>
+                                        <option value="all">All rows</option>
+                                    </select>
+                                </div>
+                                <div class="control-group">
+                                    <button id="add-column-btn" class="btn btn-secondary">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M12 5v14M5 12h14"></path>
+                                        </svg>
+                                        Add Column
+                                    </button>
+                                    <button id="calculate-column-btn" class="btn btn-secondary">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M9 7h6l3 7-3 7H9l-3-7 3-7z"></path>
+                                        </svg>
+                                        Calculate Column
+                                    </button>
+                                    <button id="replace-values-btn" class="btn btn-secondary">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+                                            <path d="m18.5 2.5 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+                                        </svg>
+                                        Replace Values
+                                    </button>
+                                </div>
+                                <div class="control-group">
+                                    <button id="download-json-btn" class="btn btn-success">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                            <polyline points="7,10 12,15 17,10"></polyline>
+                                            <line x1="12" y1="15" x2="12" y2="3"></line>
+                                        </svg>
+                                        Download JSON
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="table-container">
+                                <table id="data-table" class="data-table">
+                                    <thead id="table-head"></thead>
+                                    <tbody id="table-body"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div id="json-editor-output" class="output-area"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- JSON Merger -->
+            <section id="json-merger-section" class="tool-section" style="display: none;">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>JSON Merger</h2>
+                        <p>Merge multiple JSON files with optional key-value pairs</p>
+                    </div>
+
+                    <div class="card-body">
+                        <div class="upload-area">
+                            <input type="file" id="json-merger-files" accept=".json" multiple class="file-input">
+                            <label for="json-merger-files" class="file-label">
+                                <svg class="upload-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                                    <circle cx="9" cy="7" r="4"></circle>
+                                    <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                                    <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                                </svg>
+                                <span class="file-text">Choose multiple JSON files</span>
+                            </label>
+                            <button id="load-json-merger-btn" class="btn btn-primary">Load Files</button>
+                        </div>
+
+                        <div id="file-configs" class="file-configs" style="display: none;">
+                            <h3 class="section-title">Configure Files</h3>
+                            <p class="section-description">Add optional key-value pairs to each file's elements</p>
+                            <div id="file-list" class="file-list"></div>
+                            <button id="merge-json-btn" class="btn btn-success">Merge JSON Files</button>
+                        </div>
+
+                        <div id="json-merger-output" class="output-area"></div>
                     </div>
                 </div>
             </section>
